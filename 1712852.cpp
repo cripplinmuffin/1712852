@@ -1,10 +1,10 @@
-﻿#include <stdio.h>
+#include <stdio.h>
 #include <fcntl.h> 
 #include <io.h>   
 #include <stdlib.h>
 #include <string.h>
 #include <codecvt> 
-#include <wchar.h>
+#include<wchar.h>
 using namespace std;
 
 typedef struct SinhVien
@@ -127,12 +127,11 @@ void email(wchar_t a[], wchar_t mail[])
 
 void ghepsothich(SV sv, wchar_t kq[])
 {
-	if (sv.x == 0)
+	if (sv.x == 0) kq[0] = '\0';
+	else
 	{
-		kq[0] = '\0';
-	}
-	else{
-		for (int i = 0; i < sv.x; i++){
+		for (int i = 0; i < sv.x; i++)
+		{
 			wcscat(kq, L"<li>");
 			wcscat(kq, sv.hobby[i]);
 			wcscat(kq, L"</li>");
@@ -145,11 +144,12 @@ void search_add(wchar_t c[], SV sv)
 	wchar_t gmailsv[60];
 	wchar_t chuoisothich[1000]{};
 	ghepsothich(sv, chuoisothich);
-	wchar_t*e, *f, *g, *h, *k, *i, *l, *mail, *hs;
+	wchar_t*e, *m, *f, *g, *h, *k, *i, *l, *mail, *hs;
 	wchar_t EMAIL[60] = L"EMAIL";
+	wchar_t tenhoa[30] = L"INHOA";
 	wchar_t ten[30] = L"TÊN";
-	wchar_t mssv[10] = L"MSSV";
-	wchar_t major[30] = L"NGÀNH";
+	wchar_t mssv[10] = L"ID";
+	wchar_t major[30] = L"MAJOR";
 	wchar_t birth[20] = L"NGÀY SINH";
 	wchar_t JPG[100] = L"HINHANH";
 	wchar_t desc[1000] = L"MÔ TẢ";
@@ -163,6 +163,10 @@ void search_add(wchar_t c[], SV sv)
 	if (e != 0)
 	{
 		chenvao(ten, c, sv.name);
+	}
+	m = wcsstr(c, tenhoa);
+	if (m != 0){
+		chenvao(tenhoa, c, wcsupr(sv.name));
 	}
 	f = wcsstr(c, mssv);
 	if (f != 0)
